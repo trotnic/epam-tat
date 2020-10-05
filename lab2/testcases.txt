@@ -1,0 +1,186 @@
+Test environment - any browser
+Test unit - https://www.ebay.com
+
+----------------------------------------
+
+TC01 - Searching for a non-existing item
+
+Prerequisites - The main page is active
+
+TC Scenario:
+	1) Click on the search field
+	2) Input @string test data
+	3) Click search button
+
+Expected Result - The "No exact matches found" message is shown
+
+Test Data: 
+		@string = "fhjdkalfkdnglf"
+
+----------------------------------------
+
+TC02 - Adding an item into the shopping cart
+
+Prerequisites - The main page is active, English language is selected
+
+TC Scenario:
+	1) Click on the search field
+	2) Input @string test data to the search field
+	3) Click search button
+	4) Click the first item in a list
+	5) Click on the "Add to cart" button
+
+Expected Result - Redirects to a page with a shopping cart and the selected product in it
+
+Test Data:
+		@string = "lego model"
+
+----------------------------------------
+
+TC03 - Adding an item into the watchlist
+
+Prerequisites - The main page is active, English language is selected
+
+TC Scenario:
+	1) Click on the search field
+	2) Input @string test data to the search field
+	3) Click search button
+	4) Click on the first item in a list
+	5) Click on the "Add to Watchlist" row
+	6) Click on the "Watchlist" button
+
+Expected Result - The list with an added item is shown
+
+Test Data:
+		@string = "big blue spoon"
+
+----------------------------------------
+
+TC04 - Sorting items
+
+Prerequisites - The main page is active, English language is selected
+
+TC Scenario:
+	1) Click on the search field
+	2) Input @string test data to the search field
+	3) Click on the search button
+	4) Click on the "Best Match" button
+	5) Select "Price + Shipping: highest first" from the list
+
+Expected Result - Items are sorted by price from the highest to the lowest
+
+Test Data: 
+		@string = "comics"
+
+----------------------------------------
+
+TC05 - Changing the delivery country
+
+Prerequisites - The main page is active, English language is selected, selected delivery country is "Belarus"
+
+TC Scenario:
+	1) Click on the "Ship to" button
+	2) Click on the dropdown menu
+	3) Select "Belgium" from the menu
+	4) Click on the "Done" button
+
+Expected Result - Selected delivery country is changed to "Belgium"
+
+----------------------------------------
+
+TC06 - Attempting to buy more items than a seller has
+
+Prerequisites - The main page is active, English language is selected
+
+TC Scenario:
+	1) Click on the search field
+	2) Input @string test data to the search field
+	3) Click search button
+	4) Click on the first item in a list
+	5) Click on the "Buy it Now" button
+	6) Click on the "Quantity" dropdown menu
+	7) Select "10+" from the menu
+	8) Clear "Quantity" text field
+	9) Input @number test data to the "Quantity" text field
+	10) Click on the "Update" button
+
+Expected Result - A "The seller doesn't have that many left." message is shown
+
+Test Data:
+		@number = 999999999
+		@string = "pin"
+
+----------------------------------------
+
+TC07 - Attempting to buy an item without payment credentials
+
+Prerequisites - The main page is active, English language is selected
+
+TC Scenario:
+	1) Click on the search field
+	2) Input @search test data to the search field
+	3) Click search button
+	4) Click on the first item in a list
+	5) Click on the "Buy it Now" button
+
+Expected Result - "Apply" button is inactive
+
+Test Data:
+		@search = "pin"
+
+----------------------------------------
+
+TC08 - Sorting items on a category page
+
+Prerequisites - The main page is active, English language is selected
+
+TC Scenario:
+	1) Click on the "Show by category" button
+	2) Select "Computers & tablets" in the menu
+	3) Click on the "Computer Components"
+	4) Click on the "Graphics/Video Cards"
+	5) Click on the "Sort" dropdown menu
+	6) Select "Price + Shipping: highest first" from the list
+
+Expected Result - Items are sorted by price from the highest to the lowest
+
+----------------------------------------
+
+TC09 - 	Filtering a search result
+
+Prerequisites - The main page is active, English language is selected, currency is a US dollar
+
+TC Scenario:
+	1) Click on the search field
+	2) Input @search test data to the search field
+	3) Click search button
+	4) Input @low_price test data into low price filter field
+	5) Input @high_price test data into high price filter field
+	6) Press "Enter" button on a keyboard
+
+Expected Result - In the search results, there are no positions more expensive than 5$
+
+Test Data:
+		@search = "pie"
+		@low_price = 0
+		@high_price = 5
+
+----------------------------------------
+
+TC10 - Adding a seller to saved
+
+Prerequisites - The main pase is active, English language is selected, user is authenticated
+
+TC Scenario:
+	1) Click on the search field
+	2) Input @search test data to the search field
+	3) Click search button
+	4) Click on the first item in a list
+	5) Click on the "Save this Seller" button
+	6) Click on the "ebay" icon
+	7) Click on the "Saved" button
+
+Test Data:
+		@search = "light"
+
+Expected Result - On the "Saved" page are shown goods of the saved seller 
