@@ -4,13 +4,12 @@
     <hudson.model.CauseAction>
       <causeBag class="linked-hash-map">
         <entry>
-          <hudson.model.Cause_-UserIdCause>
-            <userId>trotnic</userId>
-          </hudson.model.Cause_-UserIdCause>
+          <hudson.triggers.SCMTrigger_-SCMTriggerCause/>
           <int>1</int>
         </entry>
       </causeBag>
     </hudson.model.CauseAction>
+    <hudson.triggers.SCMTrigger_-BuildAction/>
     <hudson.plugins.git.util.BuildData plugin="git@4.4.4">
       <buildsByBranchName>
         <entry>
@@ -46,14 +45,14 @@
     </hudson.plugins.git.GitTagAction>
     <hudson.scm.SCMRevisionState_-None/>
   </actions>
-  <queueId>2</queueId>
-  <timestamp>1602134222983</timestamp>
-  <startTime>1602134222988</startTime>
+  <queueId>27</queueId>
+  <timestamp>1602411185668</timestamp>
+  <startTime>1602411185674</startTime>
   <result>FAILURE</result>
-  <duration>11992</duration>
+  <duration>6122</duration>
   <charset>UTF-8</charset>
   <keepLog>false</keepLog>
-  <builtOn>hurt_me_plenty_slave</builtOn>
+  <builtOn>slave_ubuntu</builtOn>
   <workspace>/home/uladzislau/slave/workspace/hurt_me_plenty</workspace>
   <hudsonVersion>2.249.2</hudsonVersion>
   <scm class="hudson.plugins.git.GitChangeLogParser" plugin="git@4.4.4">

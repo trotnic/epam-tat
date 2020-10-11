@@ -1,6 +1,6 @@
-Started by timer
+Started by user [8mha:////4Izjev7zvUxTCy4hhmOK/kJP18zy69LGJm8QzPaMR3OCAAAAmR+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyhEgZe/dLi1CL9kqL8krzMZADY6EzLwgAAAA==[0mUladzislau Volchyk
 Running as SYSTEM
-Building on master in workspace /var/lib/jenkins/workspace/i_can_win
+Building in workspace /var/lib/jenkins/workspace/i_can_win
 The recommended git tool is: NONE
 No credentials specified
  > git rev-parse --is-inside-work-tree # timeout=10
@@ -8,8 +8,8 @@ Fetching changes from the remote Git repository
  > git config remote.origin.url https://github.com/vitalliuss/helloci # timeout=10
 Fetching upstream changes from https://github.com/vitalliuss/helloci
  > git --version # timeout=10
- > git --version # 'git version 2.17.1'
- > git fetch --tags --progress -- https://github.com/vitalliuss/helloci +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git --version # 'git version 2.25.1'
+ > git fetch --tags --force --progress -- https://github.com/vitalliuss/helloci +refs/heads/*:refs/remotes/origin/* # timeout=10
  > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
 Checking out Revision 446ae5a4fb9798821be65628da0b587e4e1f04e3 (refs/remotes/origin/master)
  > git config core.sparsecheckout # timeout=10
@@ -17,66 +17,29 @@ Checking out Revision 446ae5a4fb9798821be65628da0b587e4e1f04e3 (refs/remotes/ori
 Commit message: "mention cobertura issue in README"
  > git rev-list --no-walk 446ae5a4fb9798821be65628da0b587e4e1f04e3 # timeout=10
 [i_can_win] $ mvn -f Java/pom.xml test
-WARNING: An illegal reflective access operation has occurred
-WARNING: Illegal reflective access by com.google.inject.internal.cglib.core.$ReflectUtils$1 (file:/usr/share/maven/lib/guice.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
-WARNING: Please consider reporting this to the maintainers of com.google.inject.internal.cglib.core.$ReflectUtils$1
-WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
-WARNING: All illegal access operations will be denied in a future release
-[[1;34mINFO[m] Scanning for projects...
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m---------------< [0;36mcom.github.vitalliuss.helloci:hello-ci[0;1m >---------------[m
-[[1;34mINFO[m] [1mBuilding hello-ci 1.0-SNAPSHOT[m
-[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mhello-ci[0;1m ---[m
-[[1;33mWARNING[m] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-[[1;34mINFO[m] skip non existing resourceDirectory /var/lib/jenkins/workspace/i_can_win/Java/src/main/resources
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:compile[m [1m(default-compile)[m @ [36mhello-ci[0;1m ---[m
-[[1;34mINFO[m] Nothing to compile - all classes are up to date
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:testResources[m [1m(default-testResources)[m @ [36mhello-ci[0;1m ---[m
-[[1;33mWARNING[m] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
-[[1;34mINFO[m] skip non existing resourceDirectory /var/lib/jenkins/workspace/i_can_win/Java/src/test/resources
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:testCompile[m [1m(default-testCompile)[m @ [36mhello-ci[0;1m ---[m
-[[1;34mINFO[m] Nothing to compile - all classes are up to date
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:3.0.0-M1:test[m [1m(default-test)[m @ [36mhello-ci[0;1m ---[m
-[[1;34mINFO[m] 
-[[1;34mINFO[m] -------------------------------------------------------
-[[1;34mINFO[m]  T E S T S
-[[1;34mINFO[m] -------------------------------------------------------
-[[1;34mINFO[m] Running com.github.vitalliuss.helloci.[1mAppTest[m
-[[1;31mERROR[m] [1;31mTests [0;1mrun: [0;1m5[m, [1;31mFailures: [0;1;31m1[m, Errors: 0, [1;33mSkipped: [0;1;33m1[m, Time elapsed: 0.137 s[1;31m <<< FAILURE![m - in com.github.vitalliuss.helloci.[1mAppTest[m
-[[1;31mERROR[m] testShouldBeFailed(com.github.vitalliuss.helloci.AppTest)  Time elapsed: 0.013 s  <<< FAILURE!
-java.lang.AssertionError
-	at com.github.vitalliuss.helloci.AppTest.testShouldBeFailed(AppTest.java:21)
-
-[[1;34mINFO[m] 
-[[1;34mINFO[m] Results:
-[[1;34mINFO[m] 
-[[1;31mERROR[m] [1;31mFailures: [m
-[[1;31mERROR[m] [1;31m  AppTest.testShouldBeFailed:21[m
-[[1;34mINFO[m] 
-[[1;31mERROR[m] [1;31mTests run: 5, Failures: 1, Errors: 0, Skipped: 1[m
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] [1;31mBUILD FAILURE[m
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  3.539 s
-[[1;34mINFO[m] Finished at: 2020-10-08T05:25:06Z
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-surefire-plugin:3.0.0-M1:test[m [1m(default-test)[m on project [36mhello-ci[m: [1;31mThere are test failures.[m
-[[1;31mERROR[m] [1;31m[m
-[[1;31mERROR[m] [1;31mPlease refer to /var/lib/jenkins/workspace/i_can_win/Java/target/surefire-reports for the individual test results.[m
-[[1;31mERROR[m] [1;31mPlease refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.[m
-[[1;31mERROR[m] -> [1m[Help 1][m
-[[1;31mERROR[m] 
-[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
-[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
-[[1;31mERROR[m] 
-[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
-[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+FATAL: command execution failed
+java.io.IOException: error=2, No such file or directory
+	at java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
+	at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:340)
+	at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:271)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1107)
+Caused: java.io.IOException: Cannot run program "mvn" (in directory "/var/lib/jenkins/workspace/i_can_win"): error=2, No such file or directory
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1128)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1071)
+	at hudson.Proc$LocalProc.<init>(Proc.java:252)
+	at hudson.Proc$LocalProc.<init>(Proc.java:221)
+	at hudson.Launcher$LocalLauncher.launch(Launcher.java:996)
+	at hudson.Launcher$ProcStarter.start(Launcher.java:508)
+	at hudson.Launcher$ProcStarter.join(Launcher.java:519)
+	at hudson.tasks.Maven.perform(Maven.java:368)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:741)
+	at hudson.model.Build$BuildExecution.build(Build.java:206)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:163)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:504)
+	at hudson.model.Run.execute(Run.java:1894)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+	at hudson.model.ResourceController.execute(ResourceController.java:97)
+	at hudson.model.Executor.run(Executor.java:428)
 Build step 'Invoke top-level Maven targets' marked build as failure
 Finished: FAILURE

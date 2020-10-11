@@ -4,7 +4,9 @@
     <hudson.model.CauseAction>
       <causeBag class="linked-hash-map">
         <entry>
-          <hudson.triggers.TimerTrigger_-TimerTriggerCause/>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>trotnic</userId>
+          </hudson.model.Cause_-UserIdCause>
           <int>1</int>
         </entry>
       </causeBag>
@@ -44,11 +46,11 @@
     </hudson.plugins.git.GitTagAction>
     <hudson.scm.SCMRevisionState_-None/>
   </actions>
-  <queueId>8</queueId>
-  <timestamp>1602135600110</timestamp>
-  <startTime>1602135600115</startTime>
+  <queueId>6</queueId>
+  <timestamp>1602408804553</timestamp>
+  <startTime>1602408804561</startTime>
   <result>FAILURE</result>
-  <duration>6138</duration>
+  <duration>586</duration>
   <charset>UTF-8</charset>
   <keepLog>false</keepLog>
   <builtOn></builtOn>
