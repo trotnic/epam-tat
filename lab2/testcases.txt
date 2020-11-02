@@ -1,3 +1,6 @@
+Данный файл является устаревшей версией выполненного задания
+и находится здесь только для дальнейшей ретроспективы 
+
 Test environment - any browser
 Test unit - https://www.ebay.com
 
@@ -32,7 +35,7 @@ TC Scenario:
 
 Expected Result - Redirects to a page with a shopping cart and the selected product in it
 
-Test Data:
+Test Data:a
 		@string = "lego model"
 
 ----------------------------------------
