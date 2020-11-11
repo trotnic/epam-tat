@@ -1,5 +1,10 @@
 # epam-tat
---- 
+---
+## Credentials to visit the GUI
+- #### login: `noobmaster69`
+- #### password: `lolkek123`
+- #### machine: `104.155.135.99:8081`
+---
 ## Environment config
 ### Ubuntu 20.04.1 LTS
 ### JDK - openjdk version "1.8.0_265"
