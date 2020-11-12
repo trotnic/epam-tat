@@ -19,7 +19,8 @@ public class EbayTests {
     public void setUp() {
         driver = new ChromeDriver();
         driver.get("https://ebay.com");
-        wait = new WebDriverWait(driver, 10);
+        driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, 20);
 
         WebElement languageButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@id=\"gh-eb-Geo-a-default\"]")));
         if (!languageButton.getText().toLowerCase().contains("english")) {
@@ -61,15 +62,14 @@ public class EbayTests {
         WebElement firstItem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id=\"srp-river-results\"]/ul/li[1]")));
 
         WebElement firstItemTitle = firstItem.findElement(By.xpath(".//a[@class=\"s-item__link\"]"));
+        String expectedTitle = firstItemTitle.getText();
         firstItemTitle.click();
 
-        WebElement addToCartButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@id=\"isCartBtn_btn\"]")));
+        WebElement addToCartButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@id=\"isCartBtn_btn\"]")));
         addToCartButton.click();
 
-        WebElement itemInCart = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@id=\"mainContent\"]//div[@class=\"cart-bucket-lineitem\"]"))).get(0);
-
-        Assert.assertTrue(itemInCart.getText().contains(firstItemTitle.getText()));
-
+        Assert.assertTrue(wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("mainContent"), expectedTitle)));
     }
 
+    
 }
