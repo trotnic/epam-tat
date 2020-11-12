@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,8 +19,15 @@ public class EbayTests {
     @BeforeMethod
     public void setUp() {
         driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--no-sandbox");
+
+        WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("https://ebay.com");
         driver.manage().window().maximize();
+
         wait = new WebDriverWait(driver, 20);
 
         WebElement languageButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@id=\"gh-eb-Geo-a-default\"]")));
@@ -71,5 +79,5 @@ public class EbayTests {
         Assert.assertTrue(wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("mainContent"), expectedTitle)));
     }
 
-    
+
 }
