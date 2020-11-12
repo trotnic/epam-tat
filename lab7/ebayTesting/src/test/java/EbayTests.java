@@ -19,12 +19,15 @@ public class EbayTests {
     @BeforeMethod
     public void setUp() {
         driver = new ChromeDriver();
-        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless");
-        chromeOptions.addArguments("--no-sandbox");
 
-        WebDriver driver = new ChromeDriver(chromeOptions);
+// Waits 'till I find a way to run this one properly on a remote machine
+//        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+//        ChromeOptions chromeOptions = new ChromeOptions();
+//        chromeOptions.addArguments("--headless");
+//        chromeOptions.addArguments("--no-sandbox");
+
+//        WebDriver driver = new ChromeDriver(chromeOptions);
+//        driver = new ChromeDriver(chromeOptions);
         driver.get("https://ebay.com");
         driver.manage().window().maximize();
 
