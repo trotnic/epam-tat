@@ -8,7 +8,7 @@ public class EbayEnglishHomePage extends AbstractPage {
 
     private static final String HOMEPAGE_URL = "https://ebay.com";
 
-    @FindBy(xpath = "//*[@id='gh-eb-Geo-a-default']")
+    @FindBy(xpath = "//a[@id='gh-eb-Geo-a-default']")
     private WebElement currentLanguageField;
 
     @FindBy(xpath = "//a[@id=\"gh-eb-Geo-a-en\"]")

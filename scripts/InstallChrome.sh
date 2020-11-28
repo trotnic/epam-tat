@@ -1,4 +1,5 @@
 #!/bin/bash
 set -ex
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
+wget https://chromedriver.storage.googleapis.com/87.0.4280.20/chromedriver_mac64.zip
+unzip chromedriver_mac64.zip
+sudo mv chromedriver /usr/local/bin
