@@ -5,7 +5,7 @@ name: ebay UI testing
 
 on:
   push:
-    branches: [ lab8 ]
+    branches: [ lab8_CI ]
 jobs:
   build:
   
