@@ -1,4 +1,4 @@
-package model.type;
+package enumeration;
 
 public enum ExperimentalTypes {
     LIFTING_BODY, HYPERSONIC, HIGH_ALTITUDE, VTOL

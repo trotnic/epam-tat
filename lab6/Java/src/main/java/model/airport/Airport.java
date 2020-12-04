@@ -11,10 +11,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// version: 1.1
-// made by Vitali Shulha
-// 4-Jan-2019
-
 public class Airport {
     private List<? extends Plane> planes;
 
@@ -53,7 +49,7 @@ public class Airport {
     public List<ExperimentalPlane> getExperimentalPlanes() {
         return planes.stream()
                 .filter(plane -> plane instanceof ExperimentalPlane)
-                .map(plane -> (ExperimentalPlane)plane)
+                .map(plane -> (ExperimentalPlane) plane)
                 .collect(Collectors.toList());
     }
 
@@ -77,9 +73,7 @@ public class Airport {
     }
 
     private void print(Collection<? extends Plane> collection) {
-        for (Plane plane : collection) {
-            System.out.println(plane);
-        }
+        collection.forEach(System.err::println);
     }
 
     @Override
