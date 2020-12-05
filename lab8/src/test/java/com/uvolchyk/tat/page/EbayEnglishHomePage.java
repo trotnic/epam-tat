@@ -1,4 +1,4 @@
-package pageObject.page;
+package com.uvolchyk.tat.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,7 +26,7 @@ public class EbayEnglishHomePage extends AbstractPage {
 
     public EbayEnglishHomePage openPage() {
         driver.get(HOMEPAGE_URL);
-        if(!currentLanguageField.getText().toLowerCase().contains("english")) {
+        if (!currentLanguageField.getText().toLowerCase().contains("english")) {
             currentLanguageField.click();
             languageSwitchButton.click();
         }

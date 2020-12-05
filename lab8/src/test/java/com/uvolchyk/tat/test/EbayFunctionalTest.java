@@ -1,31 +1,45 @@
-package pageObject.test;
+package com.uvolchyk.tat.test;
 
+import com.uvolchyk.tat.page.EbayEnglishHomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageObject.page.EbayEnglishHomePage;
 
-public class EbayTests {
+public class EbayFunctionalTest {
 
     private WebDriver driver;
 
     @BeforeMethod
     public void setUp() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }
 
     @Test
-    public void searchForNonExistingPosition() {
+    public void testNonExistingItemMessageShow() {
         String evaluatedTitle = new EbayEnglishHomePage(driver)
                 .openPage()
                 .searchForTerm("dfsfhjdkalfkdnglf#$!@)(_!")
                 .searchResultsTitle();
         String expectedContainment = "No exact matches found";
         Assert.assertTrue(evaluatedTitle.contains(expectedContainment));
+    }
+
+    @Test
+    public void testSearchResultItemsAreFiltered() {
+        System.out.println(new EbayEnglishHomePage(driver)
+                .openPage()
+                .searchForTerm("pie")
+                .searchResultItems());
     }
 
     @AfterMethod
