@@ -1,4 +1,4 @@
-package enumeration;
+package type;
 
 public enum MilitaryType {
     FIGHTER, BOMBER, TRANSPORT

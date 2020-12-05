@@ -1,7 +1,7 @@
 import model.plane.ExperimentalPlane;
-import model.type.ClassificationLevel;
-import model.type.ExperimentalTypes;
-import model.type.MilitaryType;
+import type.ClassificationLevel;
+import type.ExperimentalTypes;
+import type.MilitaryType;
 import model.airport.Airport;
 import org.testng.Assert;
 import org.testng.annotations.Test;

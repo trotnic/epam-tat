@@ -4,7 +4,7 @@ import model.plane.ExperimentalPlane;
 import model.plane.MilitaryPlane;
 import model.plane.PassengerPlane;
 import model.plane.Plane;
-import model.type.MilitaryType;
+import type.MilitaryType;
 
 import java.util.Collection;
 import java.util.Comparator;

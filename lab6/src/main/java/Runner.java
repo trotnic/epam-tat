@@ -1,4 +1,4 @@
-import model.type.MilitaryType;
+import type.MilitaryType;
 import model.plane.MilitaryPlane;
 import model.plane.PassengerPlane;
 import model.plane.Plane;

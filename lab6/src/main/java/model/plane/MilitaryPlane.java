@@ -1,6 +1,6 @@
 package model.plane;
 
-import model.type.MilitaryType;
+import type.MilitaryType;
 
 import java.util.Objects;
 
