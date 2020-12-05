@@ -43,6 +43,8 @@ public class EbayFunctionalTest {
 
     @Test
     public void testItemsInSearchListAreSortedByMaxPrice() {
+        final Integer inaccuracy = 10;
+
         visibleElement(By.xpath("//*[@id='gh-ac-box2']/input[@type='text']"))
                 .sendKeys("comics");
         clickableElement(By.xpath("//*[@id='gh-btn']"))
@@ -53,13 +55,14 @@ public class EbayFunctionalTest {
                 .click();
 
         List<Integer> sortedByMaxPriceItems = visibleElements(By.xpath("//*[@id='srp-river-results']/ul/li")).stream()
-                .map(item -> item.findElement(By.xpath("//span[@class='s-item__price']"))
-                        .getText().replaceAll("[^0-9]", ""))
+                .map(item -> item.findElement(By.className("s-item__price"))
+                        .getText().replaceAll("(\\.\\d+)", "").replaceAll("[,$]", ""))
                 .map(Integer::valueOf)
                 .collect(Collectors.toList());
 
         Assert.assertTrue(IntStream.range(0, sortedByMaxPriceItems.size() - 1)
-                .noneMatch(i -> sortedByMaxPriceItems.get(i) > sortedByMaxPriceItems.get(i + 1)));
+                .noneMatch(i -> (int)(sortedByMaxPriceItems.get(i).doubleValue() / inaccuracy) + 1 <
+                        (int)(sortedByMaxPriceItems.get(i + 1).doubleValue() / inaccuracy)));
     }
 
     @Test
