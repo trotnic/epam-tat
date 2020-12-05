@@ -11,11 +11,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-public class SortSearchItemsTest {
+public class FilterSearchResultTest {
+
+    private final Double lowerBound = 0.0;
+    private final Double upperBound = 5.0;
 
     private final Integer timeOutDuration = 10;
     private WebDriver driver;
@@ -35,24 +38,33 @@ public class SortSearchItemsTest {
     }
 
     @Test
-    public void testItemsInSearchListAreSortedByMaxPrice() {
+    public void testSearchResultItemsAreFiltered() {
         visibleElementBy(By.xpath("//*[@id='gh-ac-box2']/input[@type='text']"))
-                .sendKeys("comics");
+                .sendKeys("pie");
         clickableElement(By.xpath("//*[@id='gh-btn']"))
                 .click();
-        clickableElement(By.xpath("//button[@aria-label='Sort selector. Best Match selected.']"))
-                .click();
-        clickableElement(By.xpath("//a[contains(., 'Price + Shipping: highest first')]"))
+
+        visibleElementBy(By.xpath("//input[@aria-label='Minimum Value in $']"))
+                .sendKeys("0");
+        visibleElementBy(By.xpath("//input[@aria-label='Maximum Value in $']"))
+                .sendKeys("5");
+        clickableElement(By.xpath("//button[@aria-label='Submit price range']"))
                 .click();
 
-        List<Integer> sortedByMaxPriceItems = visibleElements(By.xpath("//*[@id=\"srp-river-results\"]/ul/li")).stream()
-                .map(item -> item.findElement(By.xpath("//span[@class='s-item__price']"))
-                        .getText().replaceAll("[^0-9]", ""))
-                .map(Integer::valueOf)
-                .collect(Collectors.toList());
+        List<Double> filteredByPriceItems =
+                visibleElements(By.xpath("//*[@id=\"srp-river-results\"]/ul//span[@class='s-item__price']")).stream()
+                        .map(item -> item.getText().split("to"))
+                        .map(i ->
+                                Arrays.stream(i)
+                                        .map(price -> price.trim().replaceAll("\\$", ""))
+                                        .map(Double::valueOf)
+                                        .min(Double::compareTo)
+                                        .orElse(lowerBound)
+                        )
+                        .collect(Collectors.toList());
 
-        Assert.assertTrue(IntStream.range(0, sortedByMaxPriceItems.size() - 1)
-                .noneMatch(i -> sortedByMaxPriceItems.get(i) > sortedByMaxPriceItems.get(i + 1)));
+        Assert.assertTrue(filteredByPriceItems.stream()
+                .noneMatch(price -> price > upperBound && price < lowerBound));
     }
 
     @AfterMethod
