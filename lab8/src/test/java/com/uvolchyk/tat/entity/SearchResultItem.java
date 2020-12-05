@@ -1,6 +1,7 @@
 package com.uvolchyk.tat.entity;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchResultItem {
     private String title;
@@ -25,5 +26,9 @@ public class SearchResultItem {
 
     public void setPriceBounds(List<Double> priceBounds) {
         this.priceBounds = priceBounds;
+    }
+
+    public Double getActualPrice() {
+        return priceBounds.stream().min(Double::compareTo).orElse(0.0);
     }
 }

@@ -1,5 +1,6 @@
 package com.uvolchyk.tat.test;
 
+import com.uvolchyk.tat.entity.SearchResultItem;
 import com.uvolchyk.tat.page.EbayEnglishHomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class EbayFunctionalTest {
 
@@ -36,10 +39,18 @@ public class EbayFunctionalTest {
 
     @Test
     public void testSearchResultItemsAreFiltered() {
-        System.out.println(new EbayEnglishHomePage(driver)
+        final Double lowerBound = 0.0;
+        final Double upperBound = 5.0;
+
+        List<SearchResultItem> searchResultItems = new EbayEnglishHomePage(driver)
                 .openPage()
                 .searchForTerm("pie")
-                .searchResultItems());
+                .setPriceBounds(lowerBound, upperBound)
+                .filterByPrice()
+                .searchResultItems();
+
+        Assert.assertTrue(searchResultItems.stream()
+                .noneMatch(item -> item.getActualPrice() < lowerBound && item.getActualPrice() > upperBound));
     }
 
     @AfterMethod
