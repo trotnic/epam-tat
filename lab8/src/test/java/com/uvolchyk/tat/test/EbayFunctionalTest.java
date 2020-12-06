@@ -3,6 +3,7 @@ package com.uvolchyk.tat.test;
 import com.uvolchyk.tat.entity.SearchResultItem;
 import com.uvolchyk.tat.model.SortType;
 import com.uvolchyk.tat.page.EbayEnglishHomePage;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -18,8 +19,12 @@ public class EbayFunctionalTest {
 
     private WebDriver driver;
 
+    private static final String RESOURCE_PATH = "src/test/resources/";
+
     @BeforeMethod
     public void setUp() {
+        WebDriverManager.chromedriver().setup();
+        System.setProperty("webdriver.chrome.driver", RESOURCE_PATH + "chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
