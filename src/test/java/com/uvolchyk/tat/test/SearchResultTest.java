@@ -1,17 +1,13 @@
 package com.uvolchyk.tat.test;
 
+import com.uvolchyk.tat.driver.DriverFactory;
 import com.uvolchyk.tat.entity.SearchResultItem;
 import com.uvolchyk.tat.model.SortType;
 import com.uvolchyk.tat.page.EbayEnglishHomePage;
 import com.uvolchyk.tat.service.TestDataReader;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -20,17 +16,17 @@ public class SearchResultTest {
 
     private WebDriver driver;
     private TestDataReader reader;
+    private DriverFactory driverFactory;
+
+    @BeforeClass
+    public void setupAll() {
+        driverFactory = new DriverFactory();
+        reader = new TestDataReader();
+    }
 
     @BeforeMethod
     public void setUp() {
-        reader = new TestDataReader();
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--headless");
-
-        driver = new ChromeDriver(options);
+        driver = driverFactory.getDriver(true);
         driver.manage().window().maximize();
     }
 
@@ -76,7 +72,6 @@ public class SearchResultTest {
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
-        driver = null;
+        driverFactory.closeDriver();
     }
 }
