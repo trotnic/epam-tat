@@ -3,6 +3,7 @@ package com.uvolchyk.tat.test;
 import com.uvolchyk.tat.entity.SearchResultItem;
 import com.uvolchyk.tat.model.SortType;
 import com.uvolchyk.tat.page.EbayEnglishHomePage;
+import com.uvolchyk.tat.service.TestDataReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,9 +19,11 @@ import java.util.stream.IntStream;
 public class SearchResultTest {
 
     private WebDriver driver;
+    private TestDataReader reader;
 
     @BeforeMethod
     public void setUp() {
+        reader = new TestDataReader();
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
@@ -33,36 +36,42 @@ public class SearchResultTest {
 
     @Test
     public void testSearchResultItemsAreFiltered() {
-        final Double lowerBound = 0.0;
-        final Double upperBound = 5.0;
-        System.out.println("The thread ID for testSearchResultItemsAreFiltered is "+ Thread.currentThread().getId());
+        final Double lowerBound = reader.getDoubleData("testdata.test.filterwithprice.price.bound.lower");
+        final Double upperBound = reader.getDoubleData("testdata.test.filterwithprice.price.bound.upper");
+        final String searchTerm = reader.getStringData("testdata.test.filterwithprice.search.term");
+
         List<SearchResultItem> searchResultItems = new EbayEnglishHomePage(driver)
                 .openPage()
-                .searchForTerm("pie")
+                .searchForTerm(searchTerm)
                 .setPriceBounds(lowerBound, upperBound)
                 .filterByPrice()
                 .searchResultItems();
 
-        Assert.assertTrue(searchResultItems.stream()
-                .noneMatch(item -> item.getActualPrice() < lowerBound && item.getActualPrice() > upperBound));
+        boolean itemsAreFiltered = searchResultItems.stream()
+                .noneMatch(item -> item.getActualPrice() < lowerBound && item.getActualPrice() > upperBound);
+
+        Assert.assertTrue(itemsAreFiltered);
     }
 
     @Test
     public void testItemsInSearchListAreSortedByMaxPrice() {
-        final int inaccuracy = 10;
-        System.out.println("The thread ID for testItemsInSearchListAreSortedByMaxPrice is "+ Thread.currentThread().getId());
+        final Double inaccuracy = reader.getDoubleData("testdata.test.sortbymaxprice.inaccuracy");
+        final String searchTerm = reader.getStringData("testdata.test.sortbymaxprice.search.term");
+
         List<SearchResultItem> sortedResultItems = new EbayEnglishHomePage(driver)
                 .openPage()
-                .searchForTerm("comics")
+                .searchForTerm(searchTerm)
                 .sortResultsBy(SortType.PRICE_HIGHEST_FIRST)
                 .searchResultItems();
 
-        Assert.assertTrue(IntStream.range(0, sortedResultItems.size() - 1)
+        boolean itemsAreSorted = IntStream.range(0, sortedResultItems.size() - 1)
                 .noneMatch(i -> {
                     int currentPrice = (int) (sortedResultItems.get(i).getActualPrice() / inaccuracy) + 1;
                     int nextPrice = (int) (sortedResultItems.get(i + 1).getActualPrice() / inaccuracy);
                     return currentPrice < nextPrice;
-                }));
+                });
+
+        Assert.assertTrue(itemsAreSorted);
     }
 
     @AfterMethod

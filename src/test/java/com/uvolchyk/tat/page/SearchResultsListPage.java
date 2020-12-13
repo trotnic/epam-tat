@@ -46,7 +46,7 @@ public class SearchResultsListPage extends AbstractPage {
 
     @Override
     protected AbstractPage openPage() {
-        throw new RuntimeException("lolkek cheburek");
+        throw new RuntimeException("You shouldn't open this page as is, only pass the driver and the relevant search term");
     }
 
     public String searchResultsTitle() {
@@ -93,11 +93,6 @@ public class SearchResultsListPage extends AbstractPage {
                 clickSortButtonWithText("Price + Shipping: highest first");
         }
         return this;
-    }
-
-    public String firstTitle() {
-        System.out.println(searchResultsList);
-        return "";
     }
 
     private void clickSortButtonWithText(String text) {
