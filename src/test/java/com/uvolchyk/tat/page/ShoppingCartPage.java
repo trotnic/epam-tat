@@ -33,11 +33,11 @@ public class ShoppingCartPage extends AbstractPage {
             String title = item.findElement(By.xpath("//a[@data-test-id='cart-item-link']")).getText();
             String priceMetaData = item.findElement(By.className("price-details")).getText();
             List<Double> price = new ArrayList<>();
-//            Pattern pattern = Pattern.compile("(?<=\\$)\\d+[.,]\\d+");
-//            Matcher matcher = pattern.matcher(priceMetaData);
-//            if (matcher.find()) {
-//                price.add(Double.valueOf(matcher.group().replaceAll(",", ".")));
-//            }
+            Pattern pattern = Pattern.compile("(?<=\\$)\\d+[.,]\\d+");
+            Matcher matcher = pattern.matcher(priceMetaData);
+            if (matcher.find()) {
+                price.add(Double.valueOf(matcher.group().replaceAll(",", ".")));
+            }
             return new SearchResultItem(title, price);
         }).collect(Collectors.toList());
     }
