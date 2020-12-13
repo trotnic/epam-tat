@@ -22,7 +22,7 @@ public class SearchResultTest extends DefaultTestConfiguration {
                 .searchForTerm(searchTerm)
                 .setPriceBounds(lowerBound, upperBound)
                 .filterByPrice()
-                .searchResultItems();
+                .getSearchResultItems();
 
         boolean itemsAreFiltered = searchResultItems.stream()
                 .noneMatch(item -> item.getActualPrice() < lowerBound && item.getActualPrice() > upperBound);
@@ -39,7 +39,7 @@ public class SearchResultTest extends DefaultTestConfiguration {
                 .openPage()
                 .searchForTerm(searchTerm)
                 .sortResultsBy(SortType.PRICE_HIGHEST_FIRST)
-                .searchResultItems();
+                .getSearchResultItems();
 
         boolean itemsAreSorted = IntStream.range(0, sortedResultItems.size() - 1)
                 .noneMatch(i -> {

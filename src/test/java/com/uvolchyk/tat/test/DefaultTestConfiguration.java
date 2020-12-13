@@ -21,7 +21,7 @@ public class DefaultTestConfiguration {
 
     @BeforeMethod
     public void setUp() {
-        driver = driverFactory.getDriver(true);
+        driver = driverFactory.getDriver(Boolean.valueOf(System.getProperty("isHeadless")));
         driver.manage().window().maximize();
     }
 

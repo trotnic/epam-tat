@@ -9,11 +9,15 @@ public class TestDataReader {
         this.resourceBundle = ResourceBundle.getBundle(System.getProperty("environment"));
     }
 
+    public Integer getIntegerData(String key) {
+        return Integer.valueOf(getStringData(key));
+    }
+
     public Double getDoubleData(String key) {
         return Double.valueOf(getStringData(key));
     }
 
-    public String getStringData(String key){
+    public String getStringData(String key) {
         return resourceBundle.getString(key);
     }
 }

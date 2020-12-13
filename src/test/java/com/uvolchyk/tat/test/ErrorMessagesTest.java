@@ -4,7 +4,7 @@ import com.uvolchyk.tat.page.EbayHomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class EbayFunctionalTest extends DefaultTestConfiguration {
+public class ErrorMessagesTest extends DefaultTestConfiguration {
 
     @Test
     public void testNonExistingItemMessageShow() {

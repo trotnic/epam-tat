@@ -1,6 +1,7 @@
 package com.uvolchyk.tat.entity;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class SearchResultItem {
@@ -30,5 +31,18 @@ public class SearchResultItem {
 
     public Double getActualPrice() {
         return priceBounds.stream().min(Double::compareTo).orElse(0.0);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchResultItem that = (SearchResultItem) o;
+        return Objects.equals(title.toLowerCase(), that.title.toLowerCase());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title);
     }
 }

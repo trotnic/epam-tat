@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class SearchResultsListPage extends AbstractPage {
@@ -53,12 +55,13 @@ public class SearchResultsListPage extends AbstractPage {
         return searchResultsTitle.getText();
     }
 
-    public List<SearchResultItem> searchResultItems() {
+    public List<SearchResultItem> getSearchResultItems() {
         return searchResults.stream().map(item -> {
             String title = item.findElement(By.className("s-item__title")).getText();
             List<Double> priceBounds = Arrays.stream(item.findElement(By.className("s-item__price"))
-                    .getText().split("to"))
-                    .map(price -> price.trim().replaceAll("[$,]", ""))
+                    .getText().split("[^\\d.,]"))
+                    .filter(price -> !price.isEmpty())
+                    .map(price -> price.trim().replaceAll("(?<=\\d)[,](?=\\d)", ".").replaceAll("[^\\d.]", ""))
                     .map(Double::valueOf)
                     .collect(Collectors.toList());
             return new SearchResultItem(title, priceBounds);
@@ -95,6 +98,22 @@ public class SearchResultsListPage extends AbstractPage {
         }
         logger.info("Results are sorted by: " + type);
         return this;
+    }
+
+    public SingleItemPage goToSingleItemWithTitle(String title) {
+        searchResults.stream()
+                .filter(item -> item.findElement(By.className("s-item__title")).getText().equals(title))
+                .findFirst().get().findElement(By.className("s-item__link")).click();
+        return new SingleItemPage(driver);
+    }
+
+    public SingleItemPage goToSingleItemAtPosition(Integer position) {
+        searchResults.get(position).findElement(By.className("s-item__link")).click();
+        return new SingleItemPage(driver);
+    }
+
+    public SingleItemPage goToSingleItem(SearchResultItem item) {
+        return goToSingleItemWithTitle(item.getTitle());
     }
 
     private void clickSortButtonWithText(String text) {

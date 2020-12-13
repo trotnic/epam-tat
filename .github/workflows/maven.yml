@@ -19,5 +19,5 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn -Dbrowser=chrome -Dsurefire.suiteXmlFiles=src/test/resources/testng-parallel.xml -Denvironment=dev -Dtestng.dtd.http=true clean test
+      run: mvn -DisHeadless=true -Dbrowser=chrome -Dsurefire.suiteXmlFiles=src/test/resources/testng-parallel.xml -Denvironment=dev -Dtestng.dtd.http=true clean test
       #run: mvn clean test --file pom.xml
