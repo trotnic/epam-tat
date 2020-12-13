@@ -19,4 +19,5 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn clean test --file pom.xml
+      run: mvn -Dsurefire.suiteXmlFiles=src/test/resources/testng-parallel.xml -Dtestng.dtd.http=true clean test
+      #run: mvn clean test --file pom.xml
