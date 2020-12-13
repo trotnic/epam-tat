@@ -73,6 +73,7 @@ public class SearchResultsListPage extends AbstractPage {
 
     public SearchResultsListPage filterByPrice() {
         filterByPriceButton.click();
+        logger.info("Results are filtered by price");
         return this;
     }
 
@@ -92,6 +93,7 @@ public class SearchResultsListPage extends AbstractPage {
             case PRICE_HIGHEST_FIRST:
                 clickSortButtonWithText("Price + Shipping: highest first");
         }
+        logger.info("Results are sorted by: " + type);
         return this;
     }
 

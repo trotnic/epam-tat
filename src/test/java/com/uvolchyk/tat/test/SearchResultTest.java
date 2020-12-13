@@ -1,34 +1,15 @@
 package com.uvolchyk.tat.test;
 
-import com.uvolchyk.tat.driver.DriverFactory;
 import com.uvolchyk.tat.entity.SearchResultItem;
 import com.uvolchyk.tat.model.SortType;
-import com.uvolchyk.tat.page.EbayEnglishHomePage;
-import com.uvolchyk.tat.service.TestDataReader;
-import org.openqa.selenium.WebDriver;
+import com.uvolchyk.tat.page.EbayHomePage;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class SearchResultTest {
-
-    private WebDriver driver;
-    private TestDataReader reader;
-    private DriverFactory driverFactory;
-
-    @BeforeClass
-    public void setupAll() {
-        driverFactory = new DriverFactory();
-        reader = new TestDataReader();
-    }
-
-    @BeforeMethod
-    public void setUp() {
-        driver = driverFactory.getDriver(true);
-        driver.manage().window().maximize();
-    }
+public class SearchResultTest extends DefaultTestConfiguration {
 
     @Test
     public void testSearchResultItemsAreFiltered() {
@@ -36,7 +17,7 @@ public class SearchResultTest {
         final Double upperBound = reader.getDoubleData("testdata.test.filterwithprice.price.bound.upper");
         final String searchTerm = reader.getStringData("testdata.test.filterwithprice.search.term");
 
-        List<SearchResultItem> searchResultItems = new EbayEnglishHomePage(driver)
+        List<SearchResultItem> searchResultItems = new EbayHomePage(driver)
                 .openPage()
                 .searchForTerm(searchTerm)
                 .setPriceBounds(lowerBound, upperBound)
@@ -54,7 +35,7 @@ public class SearchResultTest {
         final Double inaccuracy = reader.getDoubleData("testdata.test.sortbymaxprice.inaccuracy");
         final String searchTerm = reader.getStringData("testdata.test.sortbymaxprice.search.term");
 
-        List<SearchResultItem> sortedResultItems = new EbayEnglishHomePage(driver)
+        List<SearchResultItem> sortedResultItems = new EbayHomePage(driver)
                 .openPage()
                 .searchForTerm(searchTerm)
                 .sortResultsBy(SortType.PRICE_HIGHEST_FIRST)
@@ -68,10 +49,5 @@ public class SearchResultTest {
                 });
 
         Assert.assertTrue(itemsAreSorted);
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        driverFactory.closeDriver();
     }
 }

@@ -1,29 +1,10 @@
 package com.uvolchyk.tat.test;
 
-import com.uvolchyk.tat.driver.DriverFactory;
-import com.uvolchyk.tat.page.EbayEnglishHomePage;
-import com.uvolchyk.tat.service.TestDataReader;
-import org.openqa.selenium.WebDriver;
+import com.uvolchyk.tat.page.EbayHomePage;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
-public class EbayFunctionalTest {
-
-    private WebDriver driver;
-    private TestDataReader reader;
-    private DriverFactory driverFactory;
-
-    @BeforeClass
-    public void setupAll() {
-        driverFactory = new DriverFactory();
-        reader = new TestDataReader();
-    }
-
-    @BeforeMethod
-    public void setUp() {
-        driver = driverFactory.getDriver(true);
-        driver.manage().window().maximize();
-    }
+public class EbayFunctionalTest extends DefaultTestConfiguration {
 
     @Test
     public void testNonExistingItemMessageShow() {
@@ -31,7 +12,7 @@ public class EbayFunctionalTest {
         final String expectedMessage = reader.getStringData("testdata.test.searchnonexisting.message.expected");
         final String unexpectedMessage = reader.getStringData("testdata.test.searchnonexisting.message.unexpected");
 
-        String evaluatedTitle = new EbayEnglishHomePage(driver)
+        String evaluatedTitle = new EbayHomePage(driver)
                 .openPage()
                 .searchForTerm(searchTerm)
                 .searchResultsTitle();
@@ -40,8 +21,4 @@ public class EbayFunctionalTest {
         Assert.assertFalse(evaluatedTitle.contains(unexpectedMessage));
     }
 
-    @AfterMethod
-    public void tearDown() {
-        driverFactory.closeDriver();
-    }
 }
