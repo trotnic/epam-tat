@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class SearchResultsListPage extends AbstractPage {
 
-    private String searchTerm;
+    private final String searchTerm;
 
     @FindAll(@FindBy(xpath = "//div[@id=\"srp-river-results\"]//li[@class=\"s-item\"]"))
     private List<WebElement> searchResultsList;
@@ -55,15 +55,14 @@ public class SearchResultsListPage extends AbstractPage {
 
     public List<SearchResultItem> searchResultItems() {
         return searchResults.stream().map(item -> {
-                    String title = item.findElement(By.className("s-item__title")).getText();
-                    List<Double> priceBounds = Arrays.stream(item.findElement(By.className("s-item__price"))
-                            .getText().split("to"))
-                            .map(price -> price.trim().replaceAll("[$,]", ""))
-                            .map(Double::valueOf)
-                            .collect(Collectors.toList());
-                    return new SearchResultItem(title, priceBounds);
-                })
-                .collect(Collectors.toList());
+            String title = item.findElement(By.className("s-item__title")).getText();
+            List<Double> priceBounds = Arrays.stream(item.findElement(By.className("s-item__price"))
+                    .getText().split("to"))
+                    .map(price -> price.trim().replaceAll("[$,]", ""))
+                    .map(Double::valueOf)
+                    .collect(Collectors.toList());
+            return new SearchResultItem(title, priceBounds);
+        }).collect(Collectors.toList());
     }
 
     public SearchResultsListPage setPriceBounds(Double lowerBound, Double upperBound) {

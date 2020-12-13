@@ -3,7 +3,6 @@ package com.uvolchyk.tat.test;
 import com.uvolchyk.tat.entity.SearchResultItem;
 import com.uvolchyk.tat.model.SortType;
 import com.uvolchyk.tat.page.EbayEnglishHomePage;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -22,15 +21,13 @@ public class EbayFunctionalTest {
 
     @BeforeMethod
     public void setUp() {
-//        WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver", RESOURCE_PATH + "chromedriver-linux");
+        System.setProperty("webdriver.chrome.driver", RESOURCE_PATH + "chromedriver-macos");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
     }
 
     @Test
