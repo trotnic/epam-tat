@@ -8,16 +8,10 @@ public class EbayEnglishHomePage extends AbstractPage {
 
     private static final String HOMEPAGE_URL = "https://ebay.com";
 
-    @FindBy(xpath = "//*[@id='gh-eb-Geo-a-default']")
-    private WebElement currentLanguageField;
-
-    @FindBy(xpath = "//a[@id=\"gh-eb-Geo-a-en\"]")
-    private WebElement languageSwitchButton;
-
-    @FindBy(xpath = "//*[@id='gh-ac-box2']/input[@type='text']")
+    @FindBy(id = "gh-ac")
     private WebElement searchField;
 
-    @FindBy(xpath = "//*[@id='gh-btn']")
+    @FindBy(id = "gh-btn")
     private WebElement searchButton;
 
     public EbayEnglishHomePage(WebDriver driver) {
@@ -26,10 +20,6 @@ public class EbayEnglishHomePage extends AbstractPage {
 
     public EbayEnglishHomePage openPage() {
         driver.get(HOMEPAGE_URL);
-        if (!currentLanguageField.getText().toLowerCase().contains("english")) {
-            currentLanguageField.click();
-            languageSwitchButton.click();
-        }
         return this;
     }
 

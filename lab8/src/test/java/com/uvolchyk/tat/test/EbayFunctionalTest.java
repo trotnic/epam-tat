@@ -17,21 +17,18 @@ import java.util.stream.IntStream;
 
 public class EbayFunctionalTest {
 
-    private WebDriver driver;
-
     private static final String RESOURCE_PATH = "src/test/resources/";
+    private WebDriver driver;
 
     @BeforeMethod
     public void setUp() {
         WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver", RESOURCE_PATH + "chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
     }
 
     @Test
@@ -71,11 +68,11 @@ public class EbayFunctionalTest {
                 .searchResultItems();
 
         Assert.assertTrue(IntStream.range(0, sortedResultItems.size() - 1)
-        .noneMatch(i -> {
-            int currentPrice = (int)(sortedResultItems.get(i).getActualPrice() / inaccuracy) + 1;
-            int nextPrice = (int)(sortedResultItems.get(i + 1).getActualPrice() / inaccuracy);
-            return currentPrice < nextPrice;
-        }));
+                .noneMatch(i -> {
+                    int currentPrice = (int) (sortedResultItems.get(i).getActualPrice() / inaccuracy) + 1;
+                    int nextPrice = (int) (sortedResultItems.get(i + 1).getActualPrice() / inaccuracy);
+                    return currentPrice < nextPrice;
+                }));
     }
 
     @AfterMethod
