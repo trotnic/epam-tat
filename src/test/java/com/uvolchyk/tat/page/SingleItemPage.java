@@ -31,8 +31,7 @@ public class SingleItemPage extends AbstractPage {
     }
 
     public ShoppingCartPage goToCart() {
-//        shoppingCartButton.click();
-        driver.navigate().to("https://cart.payments.ebay.com");
+        shoppingCartButton.click();
         logger.info("Shopping cart opened");
         return new ShoppingCartPage(driver);
     }
