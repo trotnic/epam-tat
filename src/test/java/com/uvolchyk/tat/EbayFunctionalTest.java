@@ -1,5 +1,6 @@
 package com.uvolchyk.tat;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,6 +25,7 @@ public class EbayFunctionalTest {
 
     @BeforeMethod
     public void setUp() {
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
@@ -32,13 +34,6 @@ public class EbayFunctionalTest {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("https://ebay.com");
-
-        WebElement languageButton = clickableElement(By.xpath("//a[@id='gh-eb-Geo-a-default']"));
-        if (!languageButton.getText().toLowerCase().contains("english")) {
-            languageButton.click();
-            driver.findElement(By.xpath("//a[@id='gh-eb-Geo-a-en']"))
-                    .click();
-        }
     }
 
     @Test
@@ -60,9 +55,11 @@ public class EbayFunctionalTest {
                 .map(Integer::valueOf)
                 .collect(Collectors.toList());
 
-        Assert.assertTrue(IntStream.range(0, sortedByMaxPriceItems.size() - 1)
-                .noneMatch(i -> (int)(sortedByMaxPriceItems.get(i).doubleValue() / inaccuracy) + 1 <
-                        (int)(sortedByMaxPriceItems.get(i + 1).doubleValue() / inaccuracy)));
+        boolean elementsAreSorted = IntStream.range(0, sortedByMaxPriceItems.size() - 1)
+                .noneMatch(i -> (int) (sortedByMaxPriceItems.get(i).doubleValue() / inaccuracy) + 1 <
+                        (int) (sortedByMaxPriceItems.get(i + 1).doubleValue() / inaccuracy));
+
+        Assert.assertTrue(elementsAreSorted);
     }
 
     @Test
@@ -94,8 +91,10 @@ public class EbayFunctionalTest {
                         )
                         .collect(Collectors.toList());
 
-        Assert.assertTrue(filteredByPriceItems.stream()
-                .noneMatch(price -> price > upperBound && price < lowerBound));
+        boolean elementsAreFiltered = filteredByPriceItems.stream()
+                .noneMatch(price -> price > upperBound && price < lowerBound);
+
+        Assert.assertTrue(elementsAreFiltered);
     }
 
     @Test
@@ -105,6 +104,7 @@ public class EbayFunctionalTest {
         clickableElement(By.xpath("//*[@id='gh-btn']"))
                 .click();
         WebElement resultBox = visibleElement(By.xpath("//*[@id='srp-river-results']"));
+
         Assert.assertTrue(resultBox.getText().contains("No exact matches found"));
     }
 
