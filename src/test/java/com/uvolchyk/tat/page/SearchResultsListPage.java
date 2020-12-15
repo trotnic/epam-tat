@@ -1,6 +1,6 @@
 package com.uvolchyk.tat.page;
 
-import com.uvolchyk.tat.entity.SearchResultItem;
+import com.uvolchyk.tat.entity.ProductItem;
 import com.uvolchyk.tat.model.SortType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -53,7 +53,7 @@ public class SearchResultsListPage extends AbstractPage {
         return searchResultsTitle.getText();
     }
 
-    public List<SearchResultItem> getSearchResultItems() {
+    public List<ProductItem> getSearchResultItems() {
         return searchResults.stream().map(item -> {
             String title = item.findElement(By.className("s-item__title")).getText();
             List<Double> priceBounds = Arrays.stream(item.findElement(By.className("s-item__price"))
@@ -62,7 +62,7 @@ public class SearchResultsListPage extends AbstractPage {
                     .map(price -> price.trim().replaceAll("(?<=\\d)[,](?=\\d)", ".").replaceAll("[^\\d.]", ""))
                     .map(Double::valueOf)
                     .collect(Collectors.toList());
-            return new SearchResultItem(title, priceBounds);
+            return new ProductItem(title, priceBounds);
         }).collect(Collectors.toList());
     }
 
@@ -98,19 +98,19 @@ public class SearchResultsListPage extends AbstractPage {
         return this;
     }
 
-    public SingleItemPage goToSingleItemWithTitle(String title) {
+    public ProductPage goToSingleItemWithTitle(String title) {
         searchResults.stream()
                 .filter(item -> item.findElement(By.className("s-item__title")).getText().equals(title))
                 .findFirst().get().findElement(By.className("s-item__link")).click();
-        return new SingleItemPage(driver);
+        return new ProductPage(driver);
     }
 
-    public SingleItemPage goToSingleItemAtPosition(Integer position) {
+    public ProductPage goToSingleItemAtPosition(Integer position) {
         searchResults.get(position).findElement(By.className("s-item__link")).click();
-        return new SingleItemPage(driver);
+        return new ProductPage(driver);
     }
 
-    public SingleItemPage goToSingleItem(SearchResultItem item) {
+    public ProductPage goToSingleItem(ProductItem item) {
         return goToSingleItemWithTitle(item.getTitle());
     }
 

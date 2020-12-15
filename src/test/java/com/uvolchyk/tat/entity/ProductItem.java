@@ -1,14 +1,14 @@
 package com.uvolchyk.tat.entity;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import com.google.common.base.Objects;
 
-public class SearchResultItem {
+import java.util.List;
+
+public class ProductItem {
     private String title;
     private List<Double> priceBounds;
 
-    public SearchResultItem(String title, List<Double> priceBounds) {
+    public ProductItem(String title, List<Double> priceBounds) {
         this.title = title;
         this.priceBounds = priceBounds;
     }
@@ -37,12 +37,12 @@ public class SearchResultItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SearchResultItem that = (SearchResultItem) o;
-        return Objects.equals(title.toLowerCase(), that.title.toLowerCase());
+        ProductItem that = (ProductItem) o;
+        return Objects.equal(title, that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title);
+        return Objects.hashCode(title);
     }
 }

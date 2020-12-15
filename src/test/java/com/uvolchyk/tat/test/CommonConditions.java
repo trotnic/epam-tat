@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-public class DefaultTestConfiguration {
+public class CommonConditions {
 
     protected WebDriver driver;
     protected TestDataReader reader;

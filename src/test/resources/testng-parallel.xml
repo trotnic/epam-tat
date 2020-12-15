@@ -4,8 +4,8 @@
     <test name="Ebay Functional Test">
         <classes>
             <class name="com.uvolchyk.tat.test.ErrorMessagesTest"/>
+            <class name="com.uvolchyk.tat.test.AddToListsTest"/>
             <class name="com.uvolchyk.tat.test.SearchResultTest"/>
-            <class name="com.uvolchyk.tat.test.UserSettingsTest"/>
         </classes>
     </test>
 </suite>

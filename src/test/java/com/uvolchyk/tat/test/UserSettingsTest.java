@@ -5,7 +5,7 @@ import com.uvolchyk.tat.page.EbayHomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class UserSettingsTest extends DefaultTestConfiguration {
+public class UserSettingsTest extends CommonConditions {
 
     @Test
     public void testCountryIsChanged() {
