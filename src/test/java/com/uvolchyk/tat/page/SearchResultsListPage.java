@@ -3,6 +3,7 @@ package com.uvolchyk.tat.page;
 import com.uvolchyk.tat.entity.ProductItem;
 import com.uvolchyk.tat.model.SortType;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class SearchResultsListPage extends AbstractPage {
 
@@ -49,8 +51,37 @@ public class SearchResultsListPage extends AbstractPage {
         throw new RuntimeException("You shouldn't open this page as is, only pass the driver and the relevant search term");
     }
 
-    public String searchResultsTitle() {
-        return searchResultsTitle.getText();
+    public Boolean containsTitle(String title) {
+        By productLocator = By.xpath(String.format("//*[contains(., '%s')]", title));
+        try {
+            new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                    .until(ExpectedConditions.presenceOfElementLocated(productLocator));
+        } catch (TimeoutException e) {
+            logger.info("No containment of - " + title);
+            return false;
+        }
+        logger.info("Page contains - " + title);
+        return true;
+    }
+
+    public Boolean searchResultItemsAreSortedBy(SortType type) {
+        switch (type) {
+            case PRICE_HIGHEST_FIRST:
+                List<ProductItem> items = getSearchResultItems();
+                return IntStream.range(0, items.size() - 1)
+                        .noneMatch(i -> {
+                            int currentPrice = (int) (items.get(i).getActualPrice() / 10.0) + 1;
+                            int nextPrice = (int) (items.get(i + 1).getActualPrice() / 10.0);
+                            return currentPrice < nextPrice;
+                        });
+            default:
+                return true;
+        }
+    }
+
+    public Boolean itemsAreFilteredByPrice(Double lowerBound, Double upperBound) {
+        return getSearchResultItems().stream()
+                .noneMatch(item -> item.getActualPrice() < lowerBound && item.getActualPrice() > upperBound);
     }
 
     public List<ProductItem> getSearchResultItems() {

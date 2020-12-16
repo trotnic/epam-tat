@@ -8,17 +8,12 @@ public class ErrorMessagesTest extends CommonConditions {
 
     @Test
     public void testNonExistingItemMessageShow() {
-        final String searchTerm = reader.getStringData("testdata.test.searchnonexisting.search.term");
-        final String expectedMessage = reader.getStringData("testdata.test.searchnonexisting.message.expected");
-        final String unexpectedMessage = reader.getStringData("testdata.test.searchnonexisting.message.unexpected");
-
-        String evaluatedTitle = new EbayHomePage(driver)
+        boolean resultsListIsEmpty = new EbayHomePage(driver)
                 .openPage()
-                .searchForTerm(searchTerm)
-                .searchResultsTitle();
+                .searchForTerm("dfsfhjdkalfkdnglf#$!@)(_!")
+                .containsTitle("No exact matches found");
 
-        Assert.assertTrue(evaluatedTitle.contains(expectedMessage));
-        Assert.assertFalse(evaluatedTitle.contains(unexpectedMessage));
+        Assert.assertTrue(resultsListIsEmpty);
     }
 
 }

@@ -16,7 +16,6 @@ public class CommonConditions {
     @BeforeClass
     public void setupAll() {
         driverFactory = new DriverFactory();
-        reader = new TestDataReader();
     }
 
     @BeforeMethod

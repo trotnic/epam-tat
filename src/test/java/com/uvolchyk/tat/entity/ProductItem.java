@@ -7,6 +7,7 @@ import java.util.List;
 public class ProductItem {
     private String title;
     private List<Double> priceBounds;
+    private String url;
 
     public ProductItem(String title, List<Double> priceBounds) {
         this.title = title;
@@ -31,6 +32,14 @@ public class ProductItem {
 
     public Double getActualPrice() {
         return priceBounds.stream().min(Double::compareTo).orElse(0.0);
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
