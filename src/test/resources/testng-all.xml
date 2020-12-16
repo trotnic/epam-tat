@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite verbose="1" name="Ebay Tests Suite" annotations="JDK">
+    <test name="Ebay Functional Test">
+        <packages>
+            <package name="com.uvolchyk.tat.test"/>
+        </packages>
+    </test>
+</suite>
