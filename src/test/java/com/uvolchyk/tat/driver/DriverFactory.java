@@ -23,7 +23,6 @@ public class DriverFactory {
                     } else {
                         driver = new FirefoxDriver();
                     }
-
                 }
                 default: {
                     WebDriverManager.chromedriver().setup();

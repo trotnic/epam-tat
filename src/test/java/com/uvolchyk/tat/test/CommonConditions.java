@@ -1,7 +1,6 @@
 package com.uvolchyk.tat.test;
 
 import com.uvolchyk.tat.driver.DriverFactory;
-import com.uvolchyk.tat.service.TestDataReader;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -10,7 +9,6 @@ import org.testng.annotations.BeforeMethod;
 public class CommonConditions {
 
     protected WebDriver driver;
-    protected TestDataReader reader;
     private DriverFactory driverFactory;
 
     @BeforeClass

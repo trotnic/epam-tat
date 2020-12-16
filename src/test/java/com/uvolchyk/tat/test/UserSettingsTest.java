@@ -9,11 +9,11 @@ public class UserSettingsTest extends CommonConditions {
 
     @Test
     public void testCountryIsChanged() {
-        Assert.assertEquals(new EbayHomePage(driver)
+        Assert.assertTrue(new EbayHomePage(driver)
                 .openPage()
                 .openCountrySwitchModal()
                 .switchCountry(CountryType.BELGIUM)
-                .currentCountry(), CountryType.BELGIUM);
+                .isCountrySelected(CountryType.BELGIUM));
     }
 
 }
