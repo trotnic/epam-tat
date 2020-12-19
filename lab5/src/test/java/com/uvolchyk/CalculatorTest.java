@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.collections.Lists;
 
 import java.util.List;
 
@@ -47,13 +48,13 @@ public class CalculatorTest {
 
     @Test
     public void testDiscriminantEqualsZero() throws CalculatorException {
-        List<Double> expectedResult = List.of(1.0, 1.0);
+        List<Double> expectedResult = Lists.newArrayList(1.0, 1.0);
         Assert.assertEquals(calculator.realRootsOfSquareEquation(1.0, -2.0, 1.0), expectedResult);
     }
 
     @Test
     public void testDiscriminantGreaterThanZero() throws CalculatorException {
-        List<Double> expectedResult = List.of(-1.0, -3.0);
+        List<Double> expectedResult = Lists.newArrayList(-1.0, -3.0);
         Assert.assertEquals(calculator.realRootsOfSquareEquation(1.0, 4.0, 3.0), expectedResult);
     }
 

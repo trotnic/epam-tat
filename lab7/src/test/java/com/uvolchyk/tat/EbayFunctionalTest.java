@@ -32,13 +32,6 @@ public class EbayFunctionalTest {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("https://ebay.com");
-
-        WebElement languageButton = clickableElement(By.xpath("//a[@id='gh-eb-Geo-a-default']"));
-        if (!languageButton.getText().toLowerCase().contains("english")) {
-            languageButton.click();
-            driver.findElement(By.xpath("//a[@id='gh-eb-Geo-a-en']"))
-                    .click();
-        }
     }
 
     @Test

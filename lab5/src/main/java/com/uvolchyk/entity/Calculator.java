@@ -1,6 +1,7 @@
 package com.uvolchyk.entity;
 
 import com.uvolchyk.exception.CalculatorException;
+import org.testng.collections.Lists;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class Calculator {
         if (d < 0) {
             throw new CalculatorException("Equation has no real roots");
         }
-        return List.of((-b + Math.sqrt(d)) / (2 * a), (-b - Math.sqrt(d)) / (2 * a));
+        return Lists.newArrayList((-b + Math.sqrt(d)) / (2 * a), (-b - Math.sqrt(d)) / (2 * a));
     }
 
     public Double circleSquare(Double r) throws CalculatorException {
