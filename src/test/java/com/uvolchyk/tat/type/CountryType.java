@@ -1,4 +1,4 @@
-package com.uvolchyk.tat.model;
+package com.uvolchyk.tat.type;
 
 public enum CountryType {
     ALBANIA,

@@ -1,6 +1,6 @@
 package com.uvolchyk.tat.page;
 
-import com.uvolchyk.tat.model.CountryType;
+import com.uvolchyk.tat.type.CountryType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;

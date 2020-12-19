@@ -1,7 +1,7 @@
 package com.uvolchyk.tat.page;
 
 import com.uvolchyk.tat.entity.ProductItem;
-import com.uvolchyk.tat.model.SortType;
+import com.uvolchyk.tat.type.SortType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;

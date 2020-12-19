@@ -1,6 +1,6 @@
 package com.uvolchyk.tat.test;
 
-import com.uvolchyk.tat.model.SortType;
+import com.uvolchyk.tat.type.SortType;
 import com.uvolchyk.tat.page.EbayHomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
