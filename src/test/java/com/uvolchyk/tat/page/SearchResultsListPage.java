@@ -2,10 +2,7 @@ package com.uvolchyk.tat.page;
 
 import com.uvolchyk.tat.entity.ProductItem;
 import com.uvolchyk.tat.type.SortType;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -29,17 +26,23 @@ public class SearchResultsListPage extends AbstractPage {
     @FindAll(@FindBy(xpath = "//*[@id='srp-river-results']//li[@class='s-item    ']"))
     private List<WebElement> searchResults;
 
-    @FindBy(xpath = "//input[@aria-label='Minimum Value in $']")
+    @FindBy(xpath = "//input[@class='x-textrange__input x-textrange__input--from']")
     private WebElement lowerPriceInputField;
 
-    @FindBy(xpath = "//input[@aria-label='Maximum Value in $']")
+    @FindBy(xpath = "//input[@class='x-textrange__input x-textrange__input--to']")
     private WebElement upperPriceInputField;
 
-    @FindBy(xpath = "//button[@aria-label='Submit price range']")
+    @FindBy(xpath = "//*[@class='x-textrange x-refine__block-button--use-arrow']//button")
     private WebElement filterByPriceButton;
 
     @FindBy(xpath = "//div[@id='mainContent']//div[@class=' srp-controls__row-cells right clearfix']//button")
     private WebElement sortButton;
+
+    private String sortTypeItemPath = "//*[@class='srp-controls__sort srp-controls__control']//*[@class='fake-menu-button__item']";
+    private By productItemTitleLocator = By.className("s-item__title");
+    private By productItemLinkLocator = By.className("s-item__link");
+    private By productItemPriceLocator = By.className("s-item__price");
+
 
     public SearchResultsListPage(WebDriver driver, String term) {
         super(driver);
@@ -86,11 +89,13 @@ public class SearchResultsListPage extends AbstractPage {
 
     public List<ProductItem> getSearchResultItems() {
         return searchResults.stream().map(item -> {
-            String title = item.findElement(By.className("s-item__title")).getText();
-            List<Double> priceBounds = Arrays.stream(item.findElement(By.className("s-item__price"))
+            String title = item.findElement(productItemTitleLocator).getText();
+            List<Double> priceBounds = Arrays.stream(item.findElement(productItemPriceLocator)
                     .getText().split("[^\\d.,]"))
                     .filter(price -> !price.isEmpty())
-                    .map(price -> price.trim().replaceAll("(?<=\\d)[,](?=\\d)", ".").replaceAll("[^\\d.]", ""))
+                    .map(price -> price.trim()
+                            .replaceAll("(?<=\\d)[,](?=\\d)", ".")
+                            .replaceAll("[^\\d.]", ""))
                     .map(Double::valueOf)
                     .collect(Collectors.toList());
             return new ProductItem(title, priceBounds);
@@ -98,6 +103,7 @@ public class SearchResultsListPage extends AbstractPage {
     }
 
     public SearchResultsListPage setPriceBounds(Double lowerBound, Double upperBound) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", lowerPriceInputField);
         lowerPriceInputField.sendKeys(lowerBound.toString());
         upperPriceInputField.sendKeys(upperBound.toString());
         return this;
@@ -111,33 +117,20 @@ public class SearchResultsListPage extends AbstractPage {
 
     public SearchResultsListPage sortResultsBy(SortType type) {
         sortButton.click();
-        switch (type) {
-            case BEST_MATCH:
-                clickSortButtonWithText("Best Match");
-            case TIME_NEWEST:
-                clickSortButtonWithText("Time: newly listed");
-            case TIME_OLDEST:
-                clickSortButtonWithText("Time: ending soonest");
-            case DISTANCE_NEAREST:
-                clickSortButtonWithText("Distance: nearest first");
-            case PRICE_LOWEST_FIRST:
-                clickSortButtonWithText("Price + Shipping: lowest first");
-            case PRICE_HIGHEST_FIRST:
-                clickSortButtonWithText("Price + Shipping: highest first");
-        }
+        clickSortButtonWithText(type.ordinal());
         logger.info("Results are sorted by: " + type);
         return this;
     }
 
     public ProductPage goToSingleItemWithTitle(String title) {
         searchResults.stream()
-                .filter(item -> item.findElement(By.className("s-item__title")).getText().equals(title))
-                .findFirst().get().findElement(By.className("s-item__link")).click();
+                .filter(item -> item.findElement(productItemTitleLocator).getText().equals(title))
+                .findFirst().get().findElement(productItemLinkLocator).click();
         return new ProductPage(driver);
     }
 
     public ProductPage goToSingleItemAtPosition(Integer position) {
-        searchResults.get(position).findElement(By.className("s-item__link")).click();
+        searchResults.get(position).findElement(productItemLinkLocator).click();
         return new ProductPage(driver);
     }
 
@@ -145,8 +138,8 @@ public class SearchResultsListPage extends AbstractPage {
         return goToSingleItemWithTitle(item.getTitle());
     }
 
-    private void clickSortButtonWithText(String text) {
-        String path = String.format("//span[@class='fake-menu-button srp-controls__control']//a[contains(., '%s')]", text);
+    private void clickSortButtonWithText(Integer index) {
+        String path = String.format("%s[%d]", sortTypeItemPath, index + 1);
         clickableElement(By.xpath(path))
                 .click();
     }

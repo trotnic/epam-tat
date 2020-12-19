@@ -12,11 +12,8 @@ public class ProductPage extends AbstractPage {
     @FindBy(id = "binBtn_btn")
     private WebElement buyItNowButton;
 
-    @FindBy(xpath = "//*[contains(text(), 'Add to cart')]")
+    @FindBy(xpath = "//*[@id='mainContent']//*[@id='atcWrapperId']//a")
     private WebElement addToCartButton;
-
-    @FindBy(xpath = "//*[@id='gh-minicart-hover']//a")
-    private WebElement shoppingCartButton;
 
     public ProductPage(WebDriver driver) {
         super(driver);

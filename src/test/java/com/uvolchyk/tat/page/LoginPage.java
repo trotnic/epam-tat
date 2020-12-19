@@ -1,6 +1,7 @@
 package com.uvolchyk.tat.page;
 
 import com.uvolchyk.tat.wait.CustomConditions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,8 @@ public class LoginPage extends AbstractPage {
     @FindBy(id = "signin-continue-btn")
     private WebElement signInButton;
 
+    private By credentialInputLocator = By.id("userid");
+
     public LoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -30,20 +33,27 @@ public class LoginPage extends AbstractPage {
     }
 
     public LoginPage putEmail(String email) {
-//        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(CustomConditions.waitForLoad());
-        credentialInput.sendKeys(email);
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(CustomConditions.waitForLoad());
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.presenceOfElementLocated(credentialInputLocator))
+                .sendKeys(email);
         return this;
     }
 
     public LoginPage putPassword(String password) {
-
-        credentialInput.sendKeys(password);
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(CustomConditions.waitForLoad());
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.presenceOfElementLocated(credentialInputLocator))
+                .sendKeys(password);
         return this;
     }
 
     public LoginPage next() {
-        signInButton.click();
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(CustomConditions.waitForLoad());
+        signInButton.submit();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         logger.info(driver.getCurrentUrl());
         return this;
     }

@@ -1,6 +1,7 @@
 package com.uvolchyk.tat.page;
 
 import com.uvolchyk.tat.entity.ProductItem;
+import com.uvolchyk.tat.wait.CustomConditions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -20,8 +21,10 @@ public class ShoppingCartPage extends AbstractPage {
 
     private String PAGE_URL = "https://cart.payments.ebay.com";
 
-    @FindAll(@FindBy(xpath = "//*[@data-test-id='app-cart'//*[@class='grid__group details']"))
+    @FindAll(@FindBy(xpath = "//*[@class='listsummary-content-itemdetails']"))
     private List<WebElement> itemsInCart;
+
+    private By productItemTitleLocator = By.xpath("//*[@class='listsummary-content-itemdetails']//h3");
 
     protected ShoppingCartPage(WebDriver driver) {
         super(driver);
@@ -29,35 +32,18 @@ public class ShoppingCartPage extends AbstractPage {
 
     @Override
     protected ShoppingCartPage openPage() {
-        driver.navigate().to(PAGE_URL);
+        driver.get(PAGE_URL);
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(CustomConditions.waitForLoad());
         return this;
     }
 
     public List<ProductItem> getItemsInCart() {
         logger.info("Shopping cart " + driver.getCurrentUrl());
         return itemsInCart.stream().map(item -> {
-            String title = item.findElement(By.xpath("//a[@data-test-id='cart-item-link']")).getText();
-            String priceMetaData = item.findElement(By.className("price-details")).getText();
+            String title = item.findElement(productItemTitleLocator).getText();
             List<Double> price = new ArrayList<>();
-            Pattern pattern = Pattern.compile("(?<=\\$)\\d+[.,]\\d+");
-            Matcher matcher = pattern.matcher(priceMetaData);
-            if (matcher.find()) {
-                price.add(Double.valueOf(matcher.group().replaceAll(",", ".")));
-            }
+            logger.info(title);
             return new ProductItem(title, price);
         }).collect(Collectors.toList());
-    }
-
-    public Boolean isProductOnCart(String productName) {
-        By productLocator = By.xpath(String.format("//*[contains(., '%s')]", productName));
-        try {
-            new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                    .until(ExpectedConditions.presenceOfElementLocated(productLocator));
-        } catch (TimeoutException e) {
-            logger.info("Product not found");
-            return false;
-        }
-        logger.info("Added the product - " + productName);
-        return true;
     }
 }

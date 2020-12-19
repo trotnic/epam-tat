@@ -18,7 +18,8 @@ public class AddToListsTest extends CommonConditions {
                 .openPage()
                 .addToCart()
                 .goToCart()
-                .isProductOnCart(productItem.getTitle());
+                .getItemsInCart()
+                .stream().anyMatch(item -> item.getTitle().toLowerCase().contains(productItem.getTitle().toLowerCase()));
 
         Assert.assertTrue(productIsInACart);
     }
