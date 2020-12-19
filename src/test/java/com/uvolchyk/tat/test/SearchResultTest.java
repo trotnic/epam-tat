@@ -1,8 +1,8 @@
 package com.uvolchyk.tat.test;
 
 import com.uvolchyk.tat.entity.ProductItem;
-import com.uvolchyk.tat.type.SortType;
 import com.uvolchyk.tat.page.EbayHomePage;
+import com.uvolchyk.tat.type.SortType;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

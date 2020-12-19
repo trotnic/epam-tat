@@ -3,6 +3,7 @@
 <suite thread-count="8" verbose="1" name="Ebay Tests Suite" annotations="JDK" parallel="classes">
     <test name="Ebay Functional Test">
         <classes>
+<!--            <class name="com.uvolchyk.tat.test.UserSettingsTest"/>-->
             <class name="com.uvolchyk.tat.test.AddToListsTest"/>
             <class name="com.uvolchyk.tat.test.SearchResultTest"/>
         </classes>
