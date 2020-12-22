@@ -1,6 +1,7 @@
 package com.uvolchyk.tat.test;
 
 import com.uvolchyk.tat.entity.ProductItem;
+import com.uvolchyk.tat.page.AdvancedSearchPage;
 import com.uvolchyk.tat.page.EbayHomePage;
 import com.uvolchyk.tat.type.SortType;
 import org.testng.Assert;
@@ -22,7 +23,9 @@ public class SearchResultTest extends CommonConditions {
                 .searchForTerm(searchTerm)
                 .setPriceBounds(lowerBound, upperBound)
                 .filterByPrice()
-                .itemsAreFilteredByPrice(lowerBound, upperBound);
+                .getSearchResultItems()
+                .stream()
+                .noneMatch(item -> item.getActualPrice() < lowerBound && item.getActualPrice() > upperBound);
 
         Assert.assertTrue(itemsAreFiltered);
     }
@@ -57,5 +60,22 @@ public class SearchResultTest extends CommonConditions {
                 .isEmpty();
 
         Assert.assertTrue(resultsListIsEmpty);
+    }
+
+    @Test
+    public void testAdvancedSearchResultsAreFiltered() {
+        final Double lowerBound = 5.0;
+        final Double upperBound = 10.0;
+        boolean itemsAreFiltered = new AdvancedSearchPage(driver)
+                .openPage()
+                .inputKeyword("the amazing spiderman")
+                .inputLowPrice(lowerBound)
+                .inputHighPrice(upperBound)
+                .search()
+                .getSearchResultItems()
+                .stream()
+                .noneMatch(item -> item.getActualPrice() < lowerBound && item.getActualPrice() > upperBound);
+
+        Assert.assertTrue(itemsAreFiltered);
     }
 }

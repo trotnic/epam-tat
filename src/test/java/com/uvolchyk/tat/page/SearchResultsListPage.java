@@ -81,12 +81,7 @@ public class SearchResultsListPage extends AbstractPage {
                 return true;
         }
     }
-
-    public Boolean itemsAreFilteredByPrice(Double lowerBound, Double upperBound) {
-        return getSearchResultItems().stream()
-                .noneMatch(item -> item.getActualPrice() < lowerBound && item.getActualPrice() > upperBound);
-    }
-
+    
     public List<ProductItem> getSearchResultItems() {
         return searchResults.stream().map(item -> {
             String title = item.findElement(productItemTitleLocator).getText();
